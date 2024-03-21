@@ -64,48 +64,6 @@ class AdminController {
         try {
           req.session.destroy((err) => {
             if (err) {
-              console.log(err)
-            } else {
-              res.redirect("/")
-            }
-          })
-        } catch (error) {}
-      }
-      
-      static async createProfile(req, res) {
-        try {
-          const id = req.query.id
-          res.render("create-profile", {id})
-        } catch (error) {
-          res.send(error)
-        }
-      }
-      
-      static async createProfilePost(req, res) {
-        try {
-          const id = req.query.id
-          // console.log(id, "<<<<<<<<<<<");
-          const {name, gender, phone, dateOfBirth, address} = req.body
-          await Profile.create({
-            name: name,
-            gender: gender,
-            phone: phone,
-            dateOfBirth: dateOfBirth,
-            address: address,
-            UserId: id
-          })
-          res.redirect("/")
-        } catch (error) {
-          console.log(error);
-          // res.send("hhh");
-          // res.send(error)
-        }
-      }
-
-      static async logoutUser(req, res) {
-        try {
-          req.session.destroy((err) => {
-            if (err) {
               console.log(err);
             } else {
               res.redirect("/")
