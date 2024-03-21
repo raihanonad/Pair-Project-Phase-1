@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const formatRupiah = require("../helpers/formatRupiah");
+const formatRupiah = require("../helpers/helper");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**

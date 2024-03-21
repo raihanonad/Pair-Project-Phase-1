@@ -91,8 +91,8 @@ class AdminController {
             gender: gender,
             phone: phone,
             dateOfBirth: dateOfBirth,
-            address: address
-            // UserId: id
+            address: address,
+            UserId: id
           })
           res.redirect("/")
         } catch (error) {
@@ -119,6 +119,8 @@ class AdminController {
               include: Category,
               order: [["id", "ASC"]]
             })
+            // res.send(product)
+            // console.log(product)
             res.render("products", {product, nameProduct})
           }
         } catch (error) {

@@ -4,10 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>List Food</title>
-    <%- include('partials/bshead') %>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
   </head>
   <body>
-    <%- include('partials/navbar')
 
     <div class="container mt-4">
       <form action="/products" method="get" class="text-center">
@@ -29,7 +33,7 @@
   <body>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/admin">Foods</a>
+        <a class="navbar-brand" href="/admin">Products</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -57,31 +61,31 @@
         <input
           type="submit"
           class="btn btn-light btn-sort"
-          value="Japanese"
+          value="Barang A"
           name="sortCategory"
         />
         <input
           type="submit"
           class="btn btn-light btn-sort"
-          value="Malaysia"
+          value="Barang B"
           name="sortCategory"
         />
         <input
           type="submit"
           class="btn btn-light btn-sort"
-          value="Indonesia"
+          value="Barang C"
           name="sortCategory"
         />
         <input
           type="submit"
           class="btn btn-light btn-sort"
-          value="India"
+          value="Barang D"
           name="sortCategory"
         />
         <input
           type="submit"
           class="btn btn-light btn-sort"
-          value="China"
+          value="Barang E"
           name="sortCategory"
         />
       </form>
@@ -124,72 +128,5 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-  </body>
-</html>
-it"
-          class="btn btn-light btn-sort"
-          value="Japanese"
-          name="sortCategory"
-        />
-        <input
-          type="submit"
-          class="btn btn-light btn-sort"
-          value="Malaysia"
-          name="sortCategory"
-        />
-        <input
-          type="submit"
-          class="btn btn-light btn-sort"
-          value="Indonesia"
-          name="sortCategory"
-        />
-        <input
-          type="submit"
-          class="btn btn-light btn-sort"
-          value="India"
-          name="sortCategory"
-        />
-        <input
-          type="submit"
-          class="btn btn-light btn-sort"
-          value="China"
-          name="sortCategory"
-        />
-      </form>
-
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
-        <% product.forEach((el, index) => { %>
-        <div class="col">
-          <div class="card h-100">
-            <img
-              src="<%= el.imageUrl %>"
-              class="card-img-top"
-              alt="product pict"
-            />
-            <div class="card-body">
-              <h5 class="card-title"><%= el.name %></h5>
-              <p class="card-text"><%= el.description %></p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Category: <%= el.Category.name %>
-                </li>
-                <li class="list-group-item">Stock: <%= el.stock %></li>
-                <li class="list-group-item">Price: <%= el.formatPrice %></li>
-              </ul>
-            </div>
-            <div class="card-footer">
-              <form action="/transaction/<%= el.id %>">
-                <button type="submit" class="btn btn-primary">
-                  Add To Cart
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <% }) %>
-      </div>
-    </div>
-
-    <%- include('partials/bsbody')
   </body>
 </html>
