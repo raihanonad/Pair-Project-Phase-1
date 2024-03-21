@@ -1,0 +1,44 @@
+[
+
+    {
+    "id": 1,
+    "username": "admin",
+    "email": "lbockh0@samsung.com",
+    "password": "admin",
+    "role": "Admin"
+    }, 
+     
+    {
+    "id": 2,
+    "username": "Cristian",
+    "email": "cgrealey1@newsvine.com",
+    "password": "cO1?B|abc/w",
+    "role": "User"
+    },
+    
+    {
+    "id": 3,
+    "username": "Ogdan",
+    "email": "oshimmin2@huffingtonpost.com",
+    "password": "aR1'm1klt",
+    "role": "User"
+    },
+    
+    {
+    "id": 4,
+    "username": "Carine",
+    "email": "ctorel3@who.int",
+    "password": "aW7+#p_|(",
+    "role": "User"
+    },
+    
+    {
+    "id": 5,
+    "username": "Jeanne",
+    "email": "jmarnes4@uiuc.edu",
+    "password": "hM4#SK.2DD,')Rk",
+    "role": "User"
+  }
+
+]
+  
