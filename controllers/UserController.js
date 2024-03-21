@@ -28,37 +28,37 @@ class UserController {
         }
     }
 
-    static async loginUserPost(req, res) {
-        try {
-          let {username, password} = req.body
-          await User.findOne({where:{username}}).then((user) => {
-            if (user) {
-              const isValidPass = bcrypt.compareSync(password, user.password)
-              if (isValidPass) {
-                req.session.user = {
-                  id: user.id,
-                  username: user.username,
-                  role: user.role
-                }
-                // console.log(user.id);
-                if (user.role === "admin") {
-                  res.redirect("/admin")
-                } else if (user.role === "customer") {
-                  res.redirect("/products")
-                }
-              } else {
-                let error = "Invalid Username/Password"
-                return res.redirect(`/login?error=${error}`)
-              }
-            } else {
-              let error = "Invalid Username/Password"
-              return res.redirect(`/login?error=${error}`)
-            }
-          })
-        } catch (error) {
-          res.send(error)
-        }
-      }
+    // static async loginUserPost(req, res) {
+    //     try {
+    //       let {username, password} = req.body
+    //       await User.findOne({where:{username}}).then((user) => {
+    //         if (user) {
+    //           const isValidPass = bcrypt.compareSync(password, user.password)
+    //           if (isValidPass) {
+    //             req.session.user = {
+    //               id: user.id,
+    //               username: user.username,
+    //               role: user.role
+    //             }
+    //             // console.log(user.id);
+    //             if (user.role === "admin") {
+    //               res.redirect("/admin")
+    //             } else if (user.role === "customer") {
+    //               res.redirect("/products")
+    //             }
+    //           } else {
+    //             let error = "Invalid Username/Password"
+    //             return res.redirect(`/login?error=${error}`)
+    //           }
+    //         } else {
+    //           let error = "Invalid Username/Password"
+    //           return res.redirect(`/login?error=${error}`)
+    //         }
+    //       })
+    //     } catch (error) {
+    //       res.send(error)
+    //     }
+    //   }
 
       static async logoutUser(req, res) {
         try {
