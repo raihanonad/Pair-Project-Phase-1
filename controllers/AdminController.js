@@ -91,8 +91,8 @@ class AdminController {
             gender: gender,
             phone: phone,
             dateOfBirth: dateOfBirth,
-            address: address,
-            UserId: id
+            address: address
+            // UserId: id
           })
           res.redirect("/")
         } catch (error) {
