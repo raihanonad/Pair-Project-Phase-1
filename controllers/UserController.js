@@ -217,4 +217,4 @@ class UserController {
     }
 }
 
-module.exports = CustomerController
+module.exports = UserController
