@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require("express-session")
 const AdminController = require('./controllers/AdminController');
 const qrcode = require('qrcode')
 const UserController = require('./controllers/UserController')
@@ -9,14 +10,14 @@ const port = 3000
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
-// app.use(session({
-//   secret : "keyboard cat",
-//   resave : false,
-//   saveUninitialized : false,
-//   cookie : { 
-//   secure : false,
-//   sameSite : true}
-// }))
+app.use(session({
+  secret : "keyboard cat",
+  resave : false,
+  saveUninitialized : false,
+  cookie : { 
+  secure : false,
+  sameSite : true}
+}))
 
 
 app.get('/register', AdminController.registerUserForm)
