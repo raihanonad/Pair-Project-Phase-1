@@ -1,6 +1,6 @@
 const {Product, Category} = require('../models')
 const {User, Profile} = require('../models')
-class CustomerController {
+class UserController {
     static async getProduct(req, res) {
         try {
           const category = req.query.sortCategory
@@ -79,4 +79,4 @@ class CustomerController {
     }
 }
 
-module.exports = CustomerController
+module.exports = UserController
