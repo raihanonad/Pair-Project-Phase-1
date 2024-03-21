@@ -101,71 +101,73 @@ class UserController {
           // res.send(error)
         }
       }
+
       static async logoutUser(req, res) {
         try {
           req.session.destroy((err) => {
             if (err) {
               console.log(err);
             } else {
-              res.redirect("/");
+              res.redirect("/")
             }
-          });
+          })
         } catch (error) {}
       }
       static async createProfile(req, res) {
         try {
           const id = req.query.id
-          res.render("create-profile", {id});
+          res.render("create-profile", {id})
         } catch (error) {
-          res.send(error);
+          res.send(error)
         }
       }
+
       static async createProfilePost(req, res) {
         try {
-          const id = req.query.id;
+          const id = req.query.id
           // console.log(id, "<<<<<<<<<<<");
-          const { name, gender, phone, dateOfBirth, address } = req.body;
+          const {name, gender, phone, dateOfBirth, address} = req.body
           await Profile.create({
             name: name,
             gender: gender,
             phone: phone,
             dateOfBirth: dateOfBirth,
             address: address,
-            UserId: id,
-          });
-          res.redirect("/");
+            UserId: id
+          })
+          res.redirect("/")
         } catch (error) {
           console.log(error.message);
-          res.send("hhh");
+          res.send("hhh")
         }
       }
+
       static async showListProduct(req, res) {
         try {
-          const category = req.query.sortCategory;
-          const { nameProduct } = req.query;
+          const category = req.query.sortCategory
+          const {nameProduct} = req.query
           if (category) {
             const product = await Product.findAll({
               include: {
                 model: Category,
-                where: { name: category },
+                where: {name: category}
               },
-              order: [["id", "ASC"]],
-            });
-    
-            res.render("products", { product, nameProduct });
+              order: [["id", "ASC"]]
+            })
+            res.render("products", {product, nameProduct})
           } else {
             const product = await Product.findAll({
               include: Category,
-              order: [["id", "ASC"]],
-            });
-    
-            res.render("products", { product, nameProduct });
+              order: [["id", "ASC"]]
+            })
+            res.render("products", {product, nameProduct})
           }
         } catch (error) {
           //   console.log(error);
-          res.send(error.message);
+          res.send(error.message)
         }
       }
+
       static async getAddProduct(req, res) {
         try {
           let {errors} = req.query
@@ -174,27 +176,26 @@ class UserController {
           } else{
             errors = errors.split(",")
           }
-          const category = await Category.findAll();
-          res.render("addFormProduct", { category , errors});
+          const category = await Category.findAll()
+          res.render("addFormProduct", { category , errors})
         } catch (error) {
           //   console.log(error);
-          res.send(error);
+          res.send(error)
         }
       }
     
       static async addPostProduct(req, res) {
         try {
-          const { name, description, price, imageUrl, CategoryId, stock } =
-            req.body;
+          const {name, description, price, imageUrl, CategoryId, stock} = req.body
           await Product.create({
             name,
             description,
             price,
             imageUrl,
             CategoryId,
-            stock,
-          });
-          res.redirect("/admin");
+            stock
+          })
+          res.redirect("/admin")
         } catch (error) {
           if(error.name === "SequelizeValidationError") {
               let errors = error.errors.map((item) => {
@@ -209,23 +210,23 @@ class UserController {
     
       static async getDecreaseProduct(req, res) {
         try {
-          const id = req.params.productid;
+          const id = req.params.productid
           const product = await Product.findOne({where: {id: id}})
           if(product && product.stock > 0){
             let decreaseProduct = await Product.increment(
               { stock: -1 },
               {
                 where: {
-                  id: id,
-                },
+                  id: id
+                }
               }
-            );
+            )
           }
     
-          res.redirect("/admin");
+          res.redirect("/admin")
         } catch (error) {
           //   console.log(error);
-          res.send(error);
+          res.send(error)
         }
       }
     

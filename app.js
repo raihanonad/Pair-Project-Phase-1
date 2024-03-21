@@ -15,7 +15,9 @@ app.post('/login', (req, res)=>{
     res.render('login')
 })
 
-app.use('/', UserController.testHome)
+app.use('/', (req,res)=>{
+  res.render('home')
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
