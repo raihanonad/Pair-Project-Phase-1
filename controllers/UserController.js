@@ -11,7 +11,7 @@ class UserController {
 
     static async postRegisterUser(req, res) {
         try {
-            let {username, email, password, role} = req.body
+            const {username, email, password, role} = req.body
             let user = await User.create({username, email, password, role})
             res.redirect(`/create-profile?id=${user.dataValues.id}`)
         } catch (error) {
@@ -21,7 +21,7 @@ class UserController {
 
     static async loginUser(req, res) {
         try {
-            let {error} = req.query
+            const {error} = req.query
             res.render("login", {error})
         } catch (error) {
             res.send(error)
@@ -30,7 +30,7 @@ class UserController {
 
     static async loginUserPost(req, res) {
         try {
-          let {username, password} = req.body
+          const {username, password} = req.body
           await User.findOne({where:{username}}).then((user) => {
             if (user) {
               const isValidPass = bcrypt.compareSync(password, user.password)
@@ -74,7 +74,7 @@ class UserController {
       
       static async createProfile(req, res) {
         try {
-          let id = req.query.id
+          const id = req.query.id
           res.render("create-profile", {id})
         } catch (error) {
           res.send(error)
@@ -83,18 +83,18 @@ class UserController {
       
       static async createProfilePost(req, res) {
         try {
-          let id = req.query.id
+          const id = req.query.id
           // console.log(id, "<<<<<<<<<<<");
-          const { name, gender, phone, dateOfBirth, address } = req.body;
+          const {name, gender, phone, dateOfBirth, address} = req.body
           await Profile.create({
             name: name,
             gender: gender,
             phone: phone,
             dateOfBirth: dateOfBirth,
             address: address,
-            UserId: id,
-          });
-          res.redirect("/");
+            UserId: id
+          })
+          res.redirect("/")
         } catch (error) {
           console.log(error);
           // res.send("hhh");
@@ -113,6 +113,7 @@ class UserController {
           })
         } catch (error) {}
       }
+      
       static async createProfile(req, res) {
         try {
           const id = req.query.id
@@ -212,9 +213,9 @@ class UserController {
         try {
           const id = req.params.productid
           const product = await Product.findOne({where: {id: id}})
-          if(product && product.stock > 0){
+          if(product && product.stock > 0) {
             let decreaseProduct = await Product.increment(
-              { stock: -1 },
+              {stock: -1},
               {
                 where: {
                   id: id
@@ -222,7 +223,6 @@ class UserController {
               }
             )
           }
-    
           res.redirect("/admin")
         } catch (error) {
           //   console.log(error);
@@ -232,46 +232,40 @@ class UserController {
     
       static async getIncrementProduct(req, res) {
         try {
-          const id = req.params.productid;
+          const id = req.params.productid
           let incrementProduct = await Product.increment(
-            { stock: 1 },
+            {stock: 1},
             {
               where: {
-                id: id,
-              },
+                id: id
+              }
             }
-          );
-    
-          res.redirect("/admin");
+          )
+          res.redirect("/admin")
         } catch (error) {
           //   console.log(error);
-          res.send(error);
+          res.send(error)
         }
       }
     
       static async deleteProduct(req, res) {
         try {
-          const id = req.params.productid;
-    
+          const id = req.params.productid
           let infoData = await Product.findOne({
             where: {
-              id: id,
-            },
-          });
-    
+              id: id
+            }
+          })
           //   console.log(infoData,">>>info");
-    
-          let nameProduct = infoData.name;
-    
+          let nameProduct = infoData.name
           await Product.destroy({
-            where: { id: id },
-          });
-    
+            where: {id: id}
+          })
           //   res.redirect("/admin");
-          res.redirect(`/admin?nameProduct=${nameProduct}`);
+          res.redirect(`/admin?nameProduct=${nameProduct}`)
         } catch (error) {
           //   console.log(error);
-          res.send(error);
+          res.send(error)
         }
       }
 }
