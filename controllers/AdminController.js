@@ -1,6 +1,6 @@
 const {User, Profile, Product, Category} = require('../models')
 const bcrypt = require("bcryptjs")
-class UserController {
+class AdminController {
     static async registerUserForm(req, res) {
         try {
             res.render('register')
@@ -11,7 +11,7 @@ class UserController {
 
     static async postRegisterUser(req, res) {
         try {
-            let {username, email, password, role} = req.body
+            const {username, email, password, role} = req.body
             let user = await User.create({username, email, password, role})
             res.redirect(`/create-profile?id=${user.dataValues.id}`)
         } catch (error) {
@@ -21,7 +21,7 @@ class UserController {
 
     static async loginUser(req, res) {
         try {
-            let {error} = req.query
+            const {error} = req.query
             res.render("login", {error})
         } catch (error) {
             res.send(error)
@@ -30,7 +30,7 @@ class UserController {
 
     static async loginUserPost(req, res) {
         try {
-          let {username, password} = req.body
+          const {username, password} = req.body
           await User.findOne({where:{username}}).then((user) => {
             if (user) {
               const isValidPass = bcrypt.compareSync(password, user.password)
@@ -74,7 +74,7 @@ class UserController {
       
       static async createProfile(req, res) {
         try {
-          let id = req.query.id
+          const id = req.query.id
           res.render("create-profile", {id})
         } catch (error) {
           res.send(error)
@@ -83,62 +83,66 @@ class UserController {
       
       static async createProfilePost(req, res) {
         try {
-          let id = req.query.id
+          const id = req.query.id
           // console.log(id, "<<<<<<<<<<<");
-          const { name, gender, phone, dateOfBirth, address } = req.body;
+          const {name, gender, phone, dateOfBirth, address} = req.body
           await Profile.create({
             name: name,
             gender: gender,
             phone: phone,
             dateOfBirth: dateOfBirth,
             address: address,
-            UserId: id,
-          });
-          res.redirect("/");
+            UserId: id
+          })
+          res.redirect("/")
         } catch (error) {
           console.log(error);
           // res.send("hhh");
           // res.send(error)
         }
       }
+
       static async logoutUser(req, res) {
         try {
           req.session.destroy((err) => {
             if (err) {
               console.log(err);
             } else {
-              res.redirect("/");
+              res.redirect("/")
             }
-          });
+          })
         } catch (error) {}
       }
+      
       static async createProfile(req, res) {
         try {
           const id = req.query.id
-          res.render("create-profile", {id});
+          res.render("create-profile", {id})
         } catch (error) {
-          res.send(error);
+          res.send(error)
         }
       }
+
       static async createProfilePost(req, res) {
         try {
-          const id = req.query.id;
+          const id = req.query.id
           // console.log(id, "<<<<<<<<<<<");
-          const { name, gender, phone, dateOfBirth, address } = req.body;
+          const {name, gender, phone, dateOfBirth, address} = req.body
           await Profile.create({
             name: name,
             gender: gender,
             phone: phone,
             dateOfBirth: dateOfBirth,
             address: address,
-            UserId: id,
-          });
-          res.redirect("/");
+            UserId: id
+          })
+          res.redirect("/")
         } catch (error) {
           console.log(error.message);
-          res.send("hhh");
+          res.send("hhh")
         }
       }
+
       static async showListProduct(req, res) {
         try {
           const category = req.query.sortCategory
@@ -151,70 +155,119 @@ class UserController {
               },
               order: [["id", "ASC"]]
             })
-            res.render("product-list", {product, nameProduct})
+            res.render("products", {product, nameProduct})
           } else {
             const product = await Product.findAll({
               include: Category,
               order: [["id", "ASC"]]
             })
-            res.render("product-list", {product, nameProduct})
+            res.render("products", {product, nameProduct})
           }
         } catch (error) {
-          console.log(error)
+          //   console.log(error);
+          res.send(error.message)
+        }
+      }
+
+      static async getAddProduct(req, res) {
+        try {
+          let {errors} = req.query
+          if (!errors) {
+            errors = []
+          } else{
+            errors = errors.split(",")
+          }
+          const category = await Category.findAll()
+          res.render("addFormProduct", { category , errors})
+        } catch (error) {
+          //   console.log(error);
           res.send(error)
         }
-    }
+      }
     
-      // static async showProfile(req, res) {
-      //   try {
-      //     const {id} = req.params
-      //     console.log(id)
-      //     const userId = req.session.user
-      //     // console.log(userId, "LLLLLLLLLLLLLLLLLLL")
-      //     const user = await User.findByPk(id)
-      //     // console.log(user, "LLLLLLL");
-      //     res.render("user", {user})
-      //   } catch (error) {
-      //     console.log(error, "<<<<<<<<");
-      //     res.send(error)
-      //   }
-      // }
-    
-    static async addToCart(req, res) {
+      static async addPostProduct(req, res) {
         try {
-          const id = req.params.id
-          const product = await Product.findOne({
-            where: {id: id},
-            include: Category
+          const {name, description, price, imageUrl, CategoryId, stock} = req.body
+          await Product.create({
+            name,
+            description,
+            price,
+            imageUrl,
+            CategoryId,
+            stock
           })
+          res.redirect("/admin")
+        } catch (error) {
+          if(error.name === "SequelizeValidationError") {
+              let errors = error.errors.map((item) => {
+                  return item.message
+              })
+              res.redirect(`/admin/add?errors=${errors}`)
+            } else {
+              res.send(error)
+        }
+        }
+      }
     
-          let data = await Product.decrement("stock", {
+      static async getDecreaseProduct(req, res) {
+        try {
+          const id = req.params.productid
+          const product = await Product.findOne({where: {id: id}})
+          if(product && product.stock > 0) {
+            let decreaseProduct = await Product.increment(
+              {stock: -1},
+              {
+                where: {
+                  id: id
+                }
+              }
+            )
+          }
+          res.redirect("/admin")
+        } catch (error) {
+          //   console.log(error);
+          res.send(error)
+        }
+      }
+    
+      static async getIncrementProduct(req, res) {
+        try {
+          const id = req.params.productid
+          let incrementProduct = await Product.increment(
+            {stock: 1},
+            {
+              where: {
+                id: id
+              }
+            }
+          )
+          res.redirect("/admin")
+        } catch (error) {
+          //   console.log(error);
+          res.send(error)
+        }
+      }
+    
+      static async deleteProduct(req, res) {
+        try {
+          const id = req.params.productid
+          let infoData = await Product.findOne({
             where: {
               id: id
-            },
-            by: 1
-          })
-          res.render("transaction", {product})
-        } catch (error) {
-          res.send(error)
-        }
-    }
-
-    static async displayCart(req, res) {
-        try {
-          const {user} = req.session
-          const profile = await Profile.findOne({
-            where: { UserId: user.id },
-            include: {
-              model: Product,
-              through: Transaction
             }
           })
-          res.render("cart", {profile})
+          //   console.log(infoData,">>>info");
+          let nameProduct = infoData.name
+          await Product.destroy({
+            where: {id: id}
+          })
+          //   res.redirect("/admin");
+          res.redirect(`/admin?nameProduct=${nameProduct}`)
         } catch (error) {
+          //   console.log(error);
           res.send(error)
         }
-    }
+      }
 }
 
-module.exports = CustomerController
+module.exports = AdminController
