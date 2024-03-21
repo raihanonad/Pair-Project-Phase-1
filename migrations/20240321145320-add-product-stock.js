@@ -10,7 +10,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.addColumn('Products', 'stock', {
-      type: Sequelize.DataTypes.STRING
+      type: Sequelize.DataTypes.INTEGER
     })
   },
 

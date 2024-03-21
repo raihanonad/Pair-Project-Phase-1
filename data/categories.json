@@ -1,26 +1,26 @@
 [
     {
     "id": 1,
-    "name": "Drywall & Acoustical (FED)"
+    "name": "Barang A"
     },
     
     {
     "id": 2,
-    "name": "Wall Protection"
+    "name": "Barang B"
     },
     
     {
     "id": 3,
-    "name": "Drywall & Acoustical (FED)"
+    "name": "Barang C"
     },
     
     {
     "id": 4,
-    "name": "Sitework & Site Utilities"
+    "name": "Barang D"
     },
     
     {
     "id": 5,
-    "name": "Framing (Wood)"
+    "name": "Barang E"
     }
 ]
