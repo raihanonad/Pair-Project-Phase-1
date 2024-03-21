@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/raihanonad/Pair-Project-Phase-1#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "ejs": "^3.1.9",
     "express": "^4.19.0",
     "pg": "^8.11.3",
