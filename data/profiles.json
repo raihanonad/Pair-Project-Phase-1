@@ -1,0 +1,47 @@
+[
+    {
+    "id": 1,
+    "name": "Berenice",
+    "gender": "Female",
+    "phone": "947-357-7172",
+    "dateOfBirth": "1/10/2024",
+    "address": "6169 Thompson Junction"
+    }, 
+
+    {
+    "id": 2,
+    "name": "Collen",
+    "gender": "Female",
+    "phone": "222-538-4514",
+    "dateOfBirth": "8/18/2023",
+    "address": "399 Crest Line Lane"
+     },
+     
+    {
+    "id": 3,
+    "name": "Valaree",
+    "gender": "Female",
+    "phone": "476-550-5580",
+    "dateOfBirth": "9/11/2023",
+    "address": "9 Marquette Pass"
+    }, 
+    
+    {
+    "id": 4,
+    "name": "Loren",
+    "gender": "Non-binary",
+    "phone": "666-689-0671",
+    "dateOfBirth": "7/11/2023",
+    "address": "352 Almo Drive"
+    }, 
+    
+    {
+    "id": 5,
+    "name": "Talbert",
+    "gender": "Male",
+    "phone": "881-524-8527",
+    "dateOfBirth": "2/2/2024",
+    "address": "912 Toban Junction"
+    }
+
+]
