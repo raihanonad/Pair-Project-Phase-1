@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-const {Product, Category} = require('../models')
-const {User, Profile} = require('../models')
-class UserController {
-    static async getProduct(req, res) {
-=======
 const {User, Profile, Product, Category} = require('../models')
 const bcrypt = require("bcryptjs")
 class UserController {
@@ -146,7 +140,6 @@ class UserController {
         }
       }
       static async showListProduct(req, res) {
->>>>>>> df83a976b475fe5ad8855e2c55a5cb0f7f54ec62
         try {
           const category = req.query.sortCategory
           const {nameProduct} = req.query
