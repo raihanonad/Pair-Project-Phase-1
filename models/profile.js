@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     dateOfBirth: DataTypes.DATE,
     address: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    UserProfileId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Profile',
