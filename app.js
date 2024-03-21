@@ -10,12 +10,14 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/register', UserController.registerUserForm)
 app.post('/register', UserController.postRegisterUser)
-app.use('/login', UserController.test)
-app.post('/login', (req, res)=>{
-    res.render('login')
-})
+// app.use('/login', UserController.test)
+// app.post('/login', (req, res)=>{
+//     res.render('login')
+// })
 
-app.use('/', UserController.testHome)
+app.use('/', (req, res)=> {
+    res.render('home')
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
