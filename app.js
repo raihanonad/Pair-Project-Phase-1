@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const UserController = require('./controllers/UserController');
 const app = express()
 const port = 3000
 
@@ -6,9 +7,17 @@ const port = 3000
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', (req, res)=>{
-    res.render('home')
+
+app.use('/register', (req, res)=>{
+    res.render('register')
 })
+app.post('/register', (req, res)=>{})
+app.use('/login', UserController.test)
+app.post('/login', (req, res)=>{
+    res.render('login')
+})
+
+app.use('/', UserController.testHome)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

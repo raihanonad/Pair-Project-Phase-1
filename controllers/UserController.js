@@ -19,6 +19,7 @@ class UserController {
         }
     }
 
+<<<<<<< HEAD
     static async loginUser(req, res) {
         try {
             let {error} = req.query
@@ -273,6 +274,23 @@ class UserController {
           res.send(error);
         }
       }
+=======
+    static async test(req,res) {
+        try {
+            res.render('login')
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async testHome(req,res) {
+        try {
+            res.render('home')
+        } catch (error) {
+            throw error
+        }
+    }
+>>>>>>> 24d8e80d54cf2e31449398fe454e51530d55ccae
 }
 
 module.exports = UserController
