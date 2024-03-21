@@ -8,14 +8,16 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 
 
-app.use('/register', UserController.registerUserForm)
+app.get('/register', UserController.registerUserForm)
 app.post('/register', UserController.postRegisterUser)
-// app.use('/login', UserController.test)
-// app.post('/login', (req, res)=>{
-//     res.render('login')
-// })
+app.get('/login', (req, res)=>{
+    res.render('login')
+})
+app.post('/login', (req, res)=>{
+    res.render('login')
+})
 
-app.use('/', (req, res)=> {
+app.get('/', (req, res)=> {
     res.render('home')
 })
 

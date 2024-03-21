@@ -1,4 +1,4 @@
-const {User, Profile, Product, Category} = require('../models')
+const { User, Profile, Product, Category } = require('../models')
 const bcrypt = require("bcryptjs")
 class UserController {
     static async registerUserForm(req, res) {
@@ -11,9 +11,12 @@ class UserController {
 
     static async postRegisterUser(req, res) {
         try {
-            let {username, email, password, role} = req.body
+            console.log(req, res, "======");
+            const { username, email, password, role } = req.body
             let user = await User.create({username, email, password, role})
-            res.redirect(`/create-profile?id=${user.dataValues.id}`)
+            console.log(user);
+            res.redirect('home')
+            // res.redirect(`/create-profile?id=${user.dataValues.id}`)
         } catch (error) {
             res.send(error.message)
         }
